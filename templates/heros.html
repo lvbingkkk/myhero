@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/favicon.ico"  type="image/x-icon">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="keywords"
+            content="魔兽世界, 后台管理"
+        />
+        <meta
+            name="description"
+            content="魔兽世界,大型多人协作游戏"
+        />
+
+        <title>英雄集合</title>
+        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <style>
+        .profession{
+            padding: 25px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 350;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+
+        }
+    </script>
+    <body>
+        <div id="rolePro"  class="profession" >
+            职业: {{.role}}
+            <br>
+            名字: {{.name}}
+            <br>
+            角色: {{.nameRole}}
+            <br>
+            英雄: {{.heros}}
+        </div>
+        <div id="boss" style="background:red;padding: 65px 15px;border-radius: 5px; font-weight: 350;
+        font-size: 30px;      position: relative;
+        width: 100%;  ">
+            BOSS: 希 尔 瓦 纳 斯
+        </div>
+        <div id="hero" style=" padding: 85px 5px 35px 5px;background:#eeeeee;
+        display: flex;
+        flex-wrap: wrap;  " >
+        </div>
+    </body>
+</html>
+<script>
+    $(function(){
+        $("#rolePro").remove();
+        console.log("{{.heros}}")
+        console.log("{{.color}}")
+
+        heros = JSON.parse("{{.heros}}");
+        colors = JSON.parse("{{.colors}}");
+
+
+        console.log(heros)
+        console.log("done")
+
+        console.log( heros[0]["role"])
+        console.log( heros[0]["damage"])
+        console.log( colors[0]["R"])
+
+
+        if (heros != null){
+            for (i=0;i<heros.length;i++){
+                id = "id"+i
+                html = `
+                <div id=${id} damage=${heros[i]["damage"]} style="             cursor: pointer; text-align: center;width: 140px;  color: white; display: inline-block;padding: 30px 25px;margin:5px 10px;border-radius: 15px;
+                background-color:rgba(${colors[i]["R"]}, ${colors[i]["G"]}, ${colors[i]["B"]}, ${colors[i]["A"]});">
+                    <span>${heros[i]["role"]}:</span><br>
+                    <span style=" font-size: 20px;font-weight: 350;">${heros[i]["name"]}</span>
+                </div>
+                `
+                $("#hero").append( html)
+                //jQuery ID选择器不能使用特殊字符的问题===名字中可能有特殊符号.,又懒的用正则去掉..
+            // $("#"+id).on("click",(event)=>{
+                //   console.log($("#"+id).attr("damage"))
+                //})
+                var oScript = document.createElement('script');
+                oScript.text =`$('#${id}').on("click",(event)=>{
+                    console.log("damage:")
+                    alert("${heros[i]["name"]}"+",对boss造成了:"+$('#${id}').attr("damage")+"点伤害")
+                })`;
+                document.body.appendChild(oScript);
+
+            }
+
+        }
+
+    })
+
+</script>
+

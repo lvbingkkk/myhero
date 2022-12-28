@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/favicon.ico"  type="image/x-icon">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="keywords"
+            content="魔兽世界, 后台管理"
+        />
+        <meta
+            name="description"
+            content="魔兽世界,大型多人协作游戏"
+        />
+
+        <title>创建英雄</title>
+        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <style>
+        .profession{
+            padding: 25px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 350;
+            font-size: 20px;
+        }
+    </style>
+    <body>
+        <div id="rolePro" zhiye="{{.pro}}" class="profession" >
+            创建职业: {{.pro}}
+            <br>
+            输入角色名字: <input id="roleName" type="text">
+        </div>
+    </body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".profession").attr("style",()=>{
+            return "background-color:rgba({{.color.R}}, {{.color.G}}, {{.color.B}}, {{.color.A}});"
+        })
+
+        //阻止点击输入框时触发点击父元素事件
+        $("#roleName").on("click",(event)=>{
+            event.stopPropagation();
+        })
+
+        $("#rolePro").on("click",()=>{
+            var url = window.location.protocol +"//" + window.location.host +"/createHero"
+            var roleName = $("#roleName").val().trim()
+            var rolePro = $("#rolePro").attr("zhiye")
+            console.log(url)
+            console.log(rolePro)
+            console.log(roleName)
+
+            if(roleName != ''){
+                if(roleName.length > 7){
+                    alert("输入字符过长!")
+                    return false
+                }else{
+                    //$.post(url,{name:roleName,role:rolePro},(data,status)=>{
+                      //  console.log(data)
+                        //console.log(status)
+                        //alert("创建角色成功!")
+                        //window.location.href = window.location.protocol +"//" + window.location.host +"/heros"
+                    //})
+                    $.ajax({
+                        method:'post',
+                        url:url,
+                        data:{name:roleName,role:rolePro},
+
+                        success: function (res) {
+                            console.log(res)
+                            alert("创建角色成功!")
+                            window.location.href = window.location.protocol +"//" + window.location.host +"/heros"
+                        },
+                        error:function (msg) {
+                            console.log(msg.responseJSON.message)
+                            alert("创建失败:"+ msg.responseJSON.message)
+                            window.location.reload()
+                        }
+                    })
+                }
+
+            }else{
+                alert("请输入角色名字!")
+            }
+        })
+    })
+
+
+
+
+</script>
+

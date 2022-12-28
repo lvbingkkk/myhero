@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/favicon.ico"  type="image/x-icon">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="keywords"
+            content="魔兽世界, 后台管理"
+        />
+        <meta
+            name="description"
+            content="魔兽世界,大型多人协作游戏"
+        />
+
+        <title>大型多人协作游戏</title>
+    </head>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .profession{
+            padding: 15px 5px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 350;
+            font-size: 20px;
+        }
+    </style>
+    <body>
+        <div  id="战士" class="profession"style="background-color:rgba({{.zhanshi.R}}, {{.zhanshi.G}}, {{.zhanshi.B}}, {{.zhanshi.A}});">
+        {{.zhanshi}} {{.prozhanshi}}
+        </div>
+        <div id="法师" class="profession"style="background-color:rgba({{.fashi.R}}, {{.fashi.G}}, {{.fashi.B}}, {{.fashi.A}});">
+            {{.fashi}} {{.profashi}}
+        </div>
+        <div id="牧师"  class="profession"style="background-color:rgba({{.mushi.R}}, {{.mushi.G}}, {{.mushi.B}}, {{.mushi.A}});">
+            {{.mushi}} {{.promushi}}
+        </div>
+        <div id="猎人"  class="profession"style="background-color:rgba({{.lieren.R}}, {{.lieren.G}}, {{.lieren.B}}, {{.lieren.A}});">
+            {{.lieren}} {{.prolieren}}
+        </div>
+        <div id="小德"  class="profession"style="background-color:rgba({{.xiaode.R}}, {{.xiaode.G}}, {{.xiaode.B}}, {{.xiaode.A}});">
+            {{.xiaode}} {{.proxiaode}}
+        </div>
+        <div id="死骑"  class="profession"style="background-color:rgba({{.siqi.R}}, {{.siqi.G}}, {{.siqi.B}}, {{.siqi.A}});">
+            {{.siqi}} {{.prosiqi}}
+        </div>
+        <div id="圣骑"  class="profession"style="background-color:rgba({{.shengqi.R}}, {{.shengqi.G}}, {{.shengqi.B}}, {{.shengqi.A}});">
+            {{.shengqi}} {{.proshengqi}}
+        </div>
+        <div  id="术士"  class="profession"style="background-color:rgba({{.shushi.R}}, {{.shushi.G}}, {{.shushi.B}}, {{.shushi.A}});">
+            {{.shushi}} {{.proshushi}}
+        </div>
+        <div id="猎魔"  class="profession"style="background-color:rgba({{.liemo.R}}, {{.liemo.G}}, {{.liemo.B}}, {{.liemo.A}});">
+            {{.liemo}} {{.proliemo}}
+        </div>
+
+    </body>
+</html>
+<script type="module">
+    //var zhanshi = document.getElementById("zhanshi")
+    //zhanshi.onclick(
+      //console.log("byid")
+    //)
+import {myHref} from '/attrs/attrs.js'
+    $(function(){
+        $(".profession").bind('click',function(){
+            var pro = $(this).attr("id")
+            console.log("this id :" , pro)
+            //var href = window.location.href
+            //去除 路由中 /#/ 影响
+            var href = window.location.host
+            console.log(href)
+            //window.location.href=href + "createHero?pro="+pro
+            myHref(href,pro)
+        })
+    })
+
+</script>
