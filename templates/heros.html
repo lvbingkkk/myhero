@@ -48,6 +48,9 @@
         width: 100%;  ">
             BOSS: 希 尔 瓦 纳 斯
         </div>
+        <progress value="50" max="100"></progress>
+        <br>
+        <textarea id='dam' rows="4" cols="50" readonly></textarea>
         <div id="hero" style=" padding: 85px 5px 35px 5px;background:#eeeeee;
         display: flex;
         flex-wrap: wrap;  " >
@@ -57,19 +60,9 @@
 <script>
     $(function(){
         $("#rolePro").remove();
-        console.log("{{.heros}}")
-        console.log("{{.color}}")
-
         heros = JSON.parse("{{.heros}}");
         colors = JSON.parse("{{.colors}}");
 
-
-        console.log(heros)
-        console.log("done")
-
-        console.log( heros[0]["role"])
-        console.log( heros[0]["damage"])
-        console.log( colors[0]["R"])
 
 
         if (heros != null){
@@ -90,6 +83,10 @@
                 var oScript = document.createElement('script');
                 oScript.text =`$('#${id}').on("click",(event)=>{
                     console.log("damage:")
+                    var textarea = document.getElementById("dam");
+                    textarea.scrollTop = textarea.scrollHeight;
+
+                    $('#dam').text($('#dam').text()+"${heros[i]["name"]}"+",对boss造成了:"+$('#${id}').attr("damage")+"点伤害\\r\\n")
                     alert("${heros[i]["name"]}"+",对boss造成了:"+$('#${id}').attr("damage")+"点伤害")
                 })`;
                 document.body.appendChild(oScript);

@@ -44,7 +44,7 @@ func main() {
 
 	router.GET("", getPro)
 
-	router.Run("localhost:8081")
+	router.Run("localhost:8080")
 }
 
 var heros []Hero
